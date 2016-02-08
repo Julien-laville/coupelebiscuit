@@ -1,0 +1,44 @@
+---
+layout: layout/main.dot
+---
+
+[[##section:
+<h1>Coupe Le Biscuit</h1>
+
+<h2>Step 1</h2>
+Draw
+
+<h2>Step 2</h2>
+Tune
+
+<h2>Step 3</h2>
+Cut
+
+
+<div class="draw">
+    <button onclick="cook.setTool(0)" class="draw--free_hand">Free hand</button>
+    <button onclick="cook.setTool(2)" class="draw--curve">Curve</button>
+    <button onclick="cook.setTool(1)" class="draw--line">Line</button>
+</div>
+
+<div class="draw">
+    <button onclick="cook.setSize(0)" class="draw--free_hand">Size 1</button>
+    <button onclick="cook.setSize(1)" class="draw--curve">Size 2</button>
+    <button onclick="cook.setSize(2)" class="draw--line">Size 3</button>
+</div>
+
+<div class="draw">
+    <button onclick="cook.clear()" class="draw--clean">Clean</button>
+    <button onclick="cook.cancel()" class="draw--back">Back</button>
+</div>
+
+<button onclick="cook.finish()">Finish</button>
+
+<canvas id="canvas"></canvas>
+
+<script src="js/cookie2d.js"></script>
+<script src="js/image.js"></script>
+<script>
+    var cook = new Cookie2D("canvas");
+</script>
+#]]
