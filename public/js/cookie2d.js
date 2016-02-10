@@ -1,6 +1,7 @@
 var Cookie2D = function(canvasID) {
 
     var canvas = document.getElementById(canvasID);
+
     var canvasHeight = canvas.clientHeight;
     var canvasWidth = canvas.clientWidth;
     canvas.width = canvasWidth;
