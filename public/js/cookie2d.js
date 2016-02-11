@@ -228,7 +228,11 @@ var Cookie2D = function(canvasID) {
                 cookieContext.lineTo(point.x,point.y);
             }
             cookieContext.stroke();
+        },
 
+        build3DModel : function() {
+            var model3d = new Model3d(cookieContext.getImageData(0,0,canvasWidth,canvasHeight))
+            model3d.cloundToShape();
         }
     }
 };

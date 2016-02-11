@@ -39,10 +39,12 @@ Cut
     <input type="checkbox" id="draw--mode-toggle">
 </div>
 <button onclick="cook.finish()">Finish</button>
+<button onclick="cook.build3DModel()">3D</button>
 
 <canvas id="canvas"></canvas>
 
 <script src="js/cookie2d.js"></script>
+<script src="js/model3d.js"></script>
 <script src="js/image.js"></script>
 <script>
     var cook = new Cookie2D("canvas");

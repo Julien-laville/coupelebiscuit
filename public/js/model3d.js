@@ -1,39 +1,60 @@
-function Model3d(canvasId) {
+function Model3d(imageData,canvasId) {
     var domCanvas = document.getElementById(canvasId);
-
-    this.ctx3d = domCanvas.getContext('3d');
+    this.imagePx = [];
+    for(var i = 0; i < imageData.data.length; i += 4) {
+        var p = !imageData.data[i+3] == 0;
+        if(p)
+            p = imageData.data[i] == 0 && imageData.data[i + 1] == 0 && imageData.data[i + 2] == 0;
+        this.imagePx.push(!p)
+    }
+    this.height = imageData.height;
+    this.width = imageData.width;
+    //this.ctx3d = domCanvas.getContext('3d');
 }
 
-Model3d.prototype.cloundToShape = function(imagePx) {
+Model3d.prototype.cloundToShape = function() {
     var p = 0;
     var shape = [];
-    var x, y = 0;
     /* look for the first */
-    while(p += 1 < imagePx.length || imagePx[p]) {}
-    if(p == imagePx.length) {
+    while((p += 4) < this.imagePx.length && !this.imagePx[p]) {}
+    if(p == this.imagePx.length) {
         throw "BLANK_IMAGE";
     }
-    shape.push(imagePx[p]);
+    shape.push(this.imagePx[p]);
     /* px found : look for the next */
-    for (var i = p; i < imagePx.length; i += 1) {
-
-        var px = imagePx[i];
+    var finder = p;
+    do {
+        shape.push(finder);
         /**
          *  8 1 2
          *  7 x 3
          *  6 5 4
          */
-        x = px.x;
-        y = px.y;
-        for(var ln = 0; ln < 8; ln += 1) {
 
 
+        if(this.imagePx[finder - this.width]) {
+            finder = finder - this.width;
+        } else if(this.imagePx[finder - this.width + 1]) {
+            finder = finder - this.width + 1;
+        } else if(this.imagePx[finder + 1]) {
+            finder = finder + 1;
+        } else if(this.imagePx[finder + this.width + 1]) {
+            finder = finder + this.width + 1;
+        } else if(this.imagePx[finder + this.width]) {
+            finder = finder + this.width;
+        } else if(this.imagePx[finder + this.width - 1]) {
+            finder = finder + this.width - 1;
+        } else if(this.imagePx[finder - 1]) {
+            finder = finder - 1;
+        } else if(this.imagePx[finder - this.width - 1]) {
+            finder = finder - this.width - 1;
         }
 
         /* 1st line / last line / 1st column / last column */
 
 
-    }
+    } while(p != finder);
+    return shape;
 };
 
 Model3d.prototype.convert = function(shapes) {
