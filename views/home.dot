@@ -43,8 +43,9 @@ Cut
 
 <canvas id="canvas"></canvas>
 
-<script src="js/cookie2d.js"></script>
-<script src="js/model3d.js"></script>
+<script data-main="js/cookie2d" src="js/require.js"></script>
+
+
 <script src="js/image.js"></script>
 <script>
     var cook = new Cookie2D("canvas");

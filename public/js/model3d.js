@@ -12,50 +12,7 @@ function Model3d(imageData,canvasId) {
     //this.ctx3d = domCanvas.getContext('3d');
 }
 
-Model3d.prototype.cloundToShape = function() {
-    var p = 0;
-    var shape = [];
-    /* look for the first */
-    while((p += 4) < this.imagePx.length && !this.imagePx[p]) {}
-    if(p == this.imagePx.length) {
-        throw "BLANK_IMAGE";
-    }
-    shape.push(this.imagePx[p]);
-    /* px found : look for the next */
-    var finder = p;
-    do {
-        shape.push(finder);
-        /**
-         *  8 1 2
-         *  7 x 3
-         *  6 5 4
-         */
 
-
-        if(this.imagePx[finder - this.width]) {
-            finder = finder - this.width;
-        } else if(this.imagePx[finder - this.width + 1]) {
-            finder = finder - this.width + 1;
-        } else if(this.imagePx[finder + 1]) {
-            finder = finder + 1;
-        } else if(this.imagePx[finder + this.width + 1]) {
-            finder = finder + this.width + 1;
-        } else if(this.imagePx[finder + this.width]) {
-            finder = finder + this.width;
-        } else if(this.imagePx[finder + this.width - 1]) {
-            finder = finder + this.width - 1;
-        } else if(this.imagePx[finder - 1]) {
-            finder = finder - 1;
-        } else if(this.imagePx[finder - this.width - 1]) {
-            finder = finder - this.width - 1;
-        }
-
-        /* 1st line / last line / 1st column / last column */
-
-
-    } while(p != finder);
-    return shape;
-};
 
 Model3d.prototype.convert = function(shapes) {
     for(var shapeKey in shapes) {
