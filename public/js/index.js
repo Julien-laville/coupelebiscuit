@@ -1,33 +1,33 @@
-module.exports = function() {
-    var Image = function (imageData) {
-        this.data = [];
-        this.height = imageData.height;
-        this.width = imageData.width;
-        for (var i = 0; i < imageData.data.length; i += 4) {
-            var p = !imageData.data[i + 3] == 0;
-            if (p)
-                p = imageData.data[i] == 0 && imageData.data[i + 1] == 0 && imageData.data[i + 2] == 0;
-            this.data.push(p)
-        }
-    };
+module.exports = function(imageData) {
 
-    Image.prototype.edge = function () {
+    this.data = [];
+    this.height = imageData.height;
+    this.width = imageData.width;
+    for (var i = 0; i < imageData.data.length; i += 4) {
+        var p = !imageData.data[i + 3] == 0;
+        if (p)
+            p = imageData.data[i] == 0 && imageData.data[i + 1] == 0 && imageData.data[i + 2] == 0;
+        this.data.push(p)
+    }
+
+
+    this.prototype.edge = function (threshold) {
         var edgeData = [];
         var it = this;
         this.data.forEach(function (p, i) {
             var ab = it.ab(i);
-            edgeData.push(it.isEdge(ab))
+            edgeData.push(it.isEdge(ab, threshold))
         });
 
         return edgeData;
     };
 
-    Image.prototype.isEdge = function (ab) {
+    this.prototype.isEdge = function (ab,threshold) {
         return ab[4] && (!ab[0] || !ab[1] || !ab[2] || !ab[3] || !ab[4] || !ab[5] || !ab[6] || !ab[7])
     };
 
 
-    Image.prototype.ab = function (p) {
+    this.prototype.ab = function (p) {
         var ab = [];
         var index;
         var size = this.data.length;
@@ -94,7 +94,7 @@ module.exports = function() {
         return ab;
     };
 
-    Image.prototype.cloundToShape = function () {
+    this.prototype.vectors = function () {
         var p = 0;
         var shape = [];
         /* look for the first */
@@ -140,9 +140,9 @@ module.exports = function() {
         return shape;
     };
 
-    Image.prototype.process = function () {
-        return this.edge();
-    };
-    return Image
+    return {
+        edge : this.edge,
+        vectors : this.cloundToShape
+    }
 };
 
